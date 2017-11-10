@@ -2,7 +2,7 @@ const createError = require('http-errors')
 
 module.exports = () => ({
   before: (handler, next) => {
-    if (handler.event.headers && handler.event.headers['Content-Type'] === 'application/json') {
+    if (Boolean(handler.body) && handler.event.headers && handler.event.headers['Content-Type'] === 'application/json') {
       try {
         handler.event.body = JSON.parse(handler.event.body)
       } catch (err) {
